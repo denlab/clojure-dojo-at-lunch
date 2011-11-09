@@ -1,0 +1,15 @@
+* clojure-dojo-at-lunch
+
+Exercices from the clojure dojo @ lunch
+
+** Usage
+
+#+BEGIN_SRC sh
+lein midje
+#+END_SRC
+
+** License
+
+Copyright (C) 2011 clojure-dojo-at-lunch team
+
+Distributed under the Eclipse Public License, the same as Clojure.
