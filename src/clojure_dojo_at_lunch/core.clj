@@ -15,20 +15,16 @@
 ;;
 ;; generate the power set of the given set (all permutations)
 
-(defn power-set "Generate the power set of the given set (all permutations)"
-  ([s]
-     (set (conj
-           (if (empty? s)
-             #{}
-             (let [pset (power-set (rest s))]
-               (concat (map (fn [one-set] (conj one-set (first s))) pset)
-                       pset)))
-           #{}))))
+(defn power-set [s]
+ (if (empty? s) #{#{}}
+   (let [subset (power-set (next s))]
+     (set (concat subset (map #(conj % (first s)) subset))))))
 
-;.;. This is the future you were hoping for. -- @Vaguery
 (fact
  (power-set #{1 2 3}) => #{#{} #{1} #{2} #{3} #{1 2} #{1 3} #{2 3} #{1 2 3}})
 
+;.;. Effort only fully releases its reward after a person refuses to quit.
+;.;. -- Hill
 (fact
  (power-set #{1 2}) => #{#{} #{1} #{2} #{1 2}})
 
