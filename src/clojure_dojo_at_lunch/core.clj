@@ -16,12 +16,18 @@
 ;; generate the power set of the given set (all permutations)
 
 (defn power-set "Generate the power set of the given set (all permutations)"
-  ([s] (conj (set
-              (if (empty? s)
-                #{}
-                (map #(conj % (first s))
-                     (power-set (rest s)))))
-             #{})))
+  ([s]
+     (set (conj
+           (if (empty? s)
+             #{}
+             (let [pset (power-set (rest s))]
+               (concat (map (fn [one-set] (conj one-set (first s))) pset)
+                       pset)))
+           #{}))))
+
+;.;. This is the future you were hoping for. -- @Vaguery
+(fact
+ (power-set #{1 2 3}) => #{#{} #{1} #{2} #{3} #{1 2} #{1 3} #{2 3} #{1 2 3}})
 
 (fact
  (power-set #{1 2}) => #{#{} #{1} #{2} #{1 2}})
